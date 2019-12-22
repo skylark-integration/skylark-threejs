@@ -5,5 +5,5 @@
  * @link https://github.com/skylark-integration/skylark-threejs/
  * @license MIT
  */
-define(["./three"],function(e,t,n){return e.mixin(t,n),skylark.attach("intg.threejs",n)});
+define(["skylark-langx/skylark","./three"],function(e,t){return e.attach("intg.threejs",t)});
 //# sourceMappingURL=sourcemaps/main.js.map

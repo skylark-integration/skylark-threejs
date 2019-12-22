@@ -86,6 +86,48 @@
 
 })(function(define,require) {
 
+define('skylark-langx-ns/_attach',[],function(){
+    return  function attach(obj1,path,obj2) {
+        if (typeof path == "string") {
+            path = path.split(".");//[path]
+        };
+        var length = path.length,
+            ns=obj1,
+            i=0,
+            name = path[i++];
+
+        while (i < length) {
+            ns = ns[name] = ns[name] || {};
+            name = path[i++];
+        }
+
+        return ns[name] = obj2;
+    }
+});
+define('skylark-langx-ns/ns',[
+    "./_attach"
+], function(_attach) {
+    var skylark = {
+    	attach : function(path,obj) {
+    		return _attach(skylark,path,obj);
+    	}
+    };
+    return skylark;
+});
+
+define('skylark-langx-ns/main',[
+	"./ns"
+],function(skylark){
+	return skylark;
+});
+define('skylark-langx-ns', ['skylark-langx-ns/main'], function (main) { return main; });
+
+define('skylark-langx/skylark',[
+    "skylark-langx-ns"
+], function(ns) {
+	return ns;
+});
+
 define('skylark-threejs/three',[], function () { 
 	'use strict';
 
@@ -50300,10 +50342,9 @@ define('skylark-threejs/three',[], function () {
 });
 
 define('skylark-threejs/main',[
+	"skylark-langx/skylark",
     "./three"
-], function(langx,webgl,threejs) {
-    langx.mixin(webgl,threejs);
-
+], function(skylark,threejs) {
     return skylark.attach("intg.threejs",threejs);
 });
 

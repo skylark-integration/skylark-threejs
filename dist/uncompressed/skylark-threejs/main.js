@@ -1,7 +1,6 @@
 define([
+	"skylark-langx/skylark",
     "./three"
-], function(langx,webgl,threejs) {
-    langx.mixin(webgl,threejs);
-
+], function(skylark,threejs) {
     return skylark.attach("intg.threejs",threejs);
 });
